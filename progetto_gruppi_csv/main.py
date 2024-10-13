@@ -18,8 +18,10 @@ def somma_celle(mat, sa):
 
     return totale
 
+# Divide in 2 gruppi la matrice
+#
 # Input: matrice come lista di liste per riga
-# Output: lista con 2 elementi di cui ogni elemento è una lista di membri del gruppo (indice 0)
+# Output: tupla con 2 elementi di cui ogni elemento è una lista di membri del gruppo (indice 0)
 def split_groups(mat):
     n = len(mat)
 
@@ -37,8 +39,10 @@ def split_groups(mat):
 
     return (set(bestGroup1), set(bestGroup2))
 
+# Converte il file CSV in una matrice come lista di liste per riga
+#
 # Input: file CSV
-# Output: matrice delle celle come lista di liste per riga
+# Output: matrice
 def csv2mat(file):
     lines = file.read().splitlines()
     mat = []
@@ -47,6 +51,19 @@ def csv2mat(file):
         mat.append(i.split(','))
 
     return mat
+
+# Converte la tupla dei gruppi in una stringa di cui ogni lettera indica l'indice del partecipante, i gruppi sono separati da uno spazio
+#
+# Input: tupla di liste di numeri da 0 a 25
+# Output: stringa
+def formatGroupsTuple(groups):
+    output = ""
+    for g in groups:
+        for item in g:
+            output += chr(ord('A') + item)
+        output += " "
+
+    return output
 
 def main():
     if len(sys.argv) < 2:
@@ -59,14 +76,15 @@ def main():
             if len(line) != len(mat):
                 print("Matrice non quadrata")
                 return
-        
+
         groups = split_groups(mat)
         media = 0
         for g in groups:
             media += somma_celle(mat, g) / len(g)
-        
+
         media /= len(groups)
-        print(f"Gruppi: {groups}, con media punti offerti: {media}")
+        print(formatGroupsTuple(groups))
+        print(media)
 
 if __name__ == "__main__":
     main()
