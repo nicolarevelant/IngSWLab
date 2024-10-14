@@ -42,6 +42,7 @@ Nella seconda riga viene stampato, invece, la media pei punti offerti.
 | D | 13| 14| 15|   |
 
 ```bash
+$ ./main.py groups_example.csv
 AC BD
 15.25
 ```
